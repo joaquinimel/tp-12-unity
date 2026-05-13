@@ -1,39 +1,41 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class CajaSpawn : MonoBehaviour
 {
-    int randomNumber;
-    public float StartYValue;
-    // Start is called before the first frame update
+    public float velocidadCaida = 5f;
+
+    private float[] posicionesX = { -3f, 0f, 3f };
+
+    public bool gameOver = false;
+
     void Start()
     {
-        
+        Respawn();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
-    }
-   void LocateBoxAtRandomPosition()
-    {
-         Vector3 currentPosition = transform.position;
-        float newX = 0f;
-        randomNumber = Random.Range(0,3);
-        if(randomNumber == 0){
-            newX = -2f;
-        } else if(randomNumber == 1){
-            newX = 0f;
-        } else if (randomNumber == 2){
-            newX = 2f;
+        if (gameOver)
+            return;
+
+        transform.Translate(Vector3.down * velocidadCaida * Time.deltaTime);
+
+        if (transform.position.y < -5f)
+        {
+            velocidadCaida += 2f;
+
+            Respawn();
         }
-        currentPosition.x = newX;
-        currentPosition.y = StartYValue;
-        transform.position = currentPosition;
     }
 
+    void Respawn()
+    {
+        int randomX = Random.Range(0, posicionesX.Length);
 
-
+        transform.position = new Vector3(
+            posicionesX[randomX],
+            6f,
+            0f
+        );
+    }
 }

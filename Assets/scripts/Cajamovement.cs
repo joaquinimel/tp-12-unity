@@ -1,28 +1,46 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class Cajamovement : MonoBehaviour
+public class CajaMovement : MonoBehaviour
 {
-    public float speed;
+    // Posiciones: izquierda, medio, derecha
+    private float[] posicionesX = { -3f, 0f, 3f };
 
+    private int posicionActual = 1;
 
+    void Start()
+    {
+        ActualizarPosicion();
+    }
 
-
-    // Update is called once per frame
     void Update()
     {
-        transform.Translate(0, -speed, 0);
-    }
-   
-void OnCollisionEnter(Collision col)
-    {
-        if(col.gameObject.CompareTag("Caja"))
+        // Izquierda
+        if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A))
         {
-            Destroy(gameObject);
+            if (posicionActual > 0)
+            {
+                posicionActual--;
+                ActualizarPosicion();
+            }
+        }
+
+        // Derecha
+        if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D))
+        {
+            if (posicionActual < 2)
+            {
+                posicionActual++;
+                ActualizarPosicion();
+            }
         }
     }
 
+    void ActualizarPosicion()
+    {
+        transform.position = new Vector3(
+            posicionesX[posicionActual],
+            transform.position.y,
+            transform.position.z
+        );
+    }
 }
-
-

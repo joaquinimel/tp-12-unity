@@ -1,29 +1,43 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class Playercontroller : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
-    // Start is called before the first frame update
+    private float[] posicionesX = { -3f, 0f, 3f };
+
+    private int posicionActual = 1;
+
     void Start()
     {
-        
+        ActualizarPosicion();
     }
 
-    // Update is called once per frame
-   void Update()
+    void Update()
     {
-        if(Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A))
+        if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A))
         {
-            transform.Translate(-2, 0, 0);
+            if (posicionActual > 0)
+            {
+                posicionActual--;
+                ActualizarPosicion();
+            }
         }
 
-
-        if(Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D))
+        if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D))
         {
-            transform.Translate(2, 0, 0);
+            if (posicionActual < 2)
+            {
+                posicionActual++;
+                ActualizarPosicion();
+            }
         }
     }
 
-
+    void ActualizarPosicion()
+    {
+        transform.position = new Vector3(
+            posicionesX[posicionActual],
+            transform.position.y,
+            transform.position.z
+        );
+    }
 }

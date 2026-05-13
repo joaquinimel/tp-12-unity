@@ -1,14 +1,23 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class CajaCollision : MonoBehaviour
+public class PlayerCollision : MonoBehaviour
 {
-  void OnCollisionEnter(Collision col)
-  {
-    if(col.gameObject.CompareTag("Caja"))
+    private CajaSpawn cajaSpawn;
+
+    void Start()
     {
-        col.gameObject.GetComponent<CajaSpawn>().LocateBoxAtRandomPosition();
+        cajaSpawn = GetComponent<CajaSpawn>();
     }
-  }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            cajaSpawn.gameOver = true;
+
+            Destroy(other.gameObject);
+
+            Debug.Log("GAME OVER");
+        }
+    }
 }
