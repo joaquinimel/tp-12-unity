@@ -5,17 +5,21 @@ public class TimeManager : MonoBehaviour
 {
     public TextMeshProUGUI textoTiempo;
 
-    private float tiempo = 0f;
-
-    public bool gameOver = false;
+    float tiempo = 0f;
+    public bool juega = true;
 
     void Update()
     {
-        if (!gameOver)
+        if (juega)
         {
             tiempo += Time.deltaTime;
-
-            textoTiempo.text = "Tiempo: " + tiempo.ToString("F2");
         }
+
+        textoTiempo.text = tiempo.ToString("F2");
+
+        
+    }
+    public void stop(){
+        juega = false;
     }
 }

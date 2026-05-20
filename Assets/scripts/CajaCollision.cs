@@ -1,23 +1,18 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
-public class PlayerCollision : MonoBehaviour
+public class CajaCollision : MonoBehaviour
 {
-    private CajaSpawn cajaSpawn;
-
+    // Start is called before the first frame update
     void Start()
     {
-        cajaSpawn = GetComponent<CajaSpawn>();
+        
     }
 
-    private void OnTriggerEnter(Collider other)
+    // Update is called once per frame
+    void Update()
     {
-        if (other.CompareTag("Player"))
-        {
-            cajaSpawn.gameOver = true;
-
-            Destroy(other.gameObject);
-
-            Debug.Log("GAME OVER");
-        }
+        
     }
 }
